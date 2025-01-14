@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-center gap-6">
+    <main className="flex h-screen w-full flex-col items-center justify-center gap-6">
       <div className="space-y-2 text-center">
         <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl">
           Oops! Page not found.
@@ -17,6 +17,6 @@ export default function NotFound() {
       >
         Go back home
       </Link>
-    </div>
+    </main>
   );
 }
