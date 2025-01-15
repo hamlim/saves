@@ -35,6 +35,12 @@ export async function GET(request: Request): Promise<Response> {
     });
     let githubUser: GitHubUser = await githubUserResponse.json();
 
+    if (githubUser.login !== "hamlim") {
+      return new Response(null, {
+        status: 403,
+      });
+    }
+
     let existingUser = await db.query.users.findFirst({
       where: (users, { eq }) => eq(users.githubId, githubUser.id),
     });
