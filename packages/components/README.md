@@ -1,11 +1,11 @@
-# `pkg-a`
+# `components`
 
 TODO
 
 ## Getting Started:
 
 ```bash
-bun add pkg-a
+bun add components
 ```
 
 ...
