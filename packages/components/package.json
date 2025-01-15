@@ -2,10 +2,6 @@
   "name": "@local/components",
   "version": "0.0.1",
   "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
     "./heading": {
       "import": "./dist/heading.js",
       "types": "./dist/heading.d.ts"
@@ -41,8 +37,10 @@
     "./textarea": {
       "import": "./dist/textarea.js",
       "types": "./dist/textarea.d.ts"
-    }
+    },
+    ".": "./index.js"
   },
+  "main": "./index.js",
   "type": "module",
   "devDependencies": {
     "hohoro": "0.3.0",

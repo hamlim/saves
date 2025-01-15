@@ -16,10 +16,14 @@ export namespace Link {
 }
 
 export function Link({
-  variant = "text",
-  size = "md",
+  variant: providedVariant = "text",
+  size: providedSize = "md",
   ...props
 }: Link.Props): React.ReactNode {
+  // maybe a bug in oxc-transformer?
+  // it strips out the default params for the Link function
+  let variant = providedVariant || "text";
+  let size = providedSize || "md";
   return <Action {...props} is={NextLink} variant={variant} size={size} />;
 }
 
