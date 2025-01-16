@@ -1,4 +1,4 @@
-import { jsonb, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { boolean, jsonb, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 
 export let users = pgTable("saves-users", {
   id: text("id").primaryKey(),
@@ -106,3 +106,28 @@ export let contentTags = pgTable("saves-content-tags", {
     .references(() => tags.id)
     .notNull(),
 });
+
+export let apiKeys = pgTable("saves-api-keys", {
+  id: text("id").primaryKey(),
+  createdAt: timestamp("created_at", {
+    withTimezone: true,
+    mode: "date",
+  }).defaultNow(),
+  userId: text("user_id")
+    .references(() => users.id)
+    .notNull(),
+  name: text("name").notNull(),
+  key: text("key").notNull(),
+  expiresAt: timestamp("expires_at", {
+    withTimezone: true,
+    mode: "date",
+  }),
+  lastUsedAt: timestamp("last_used_at", {
+    withTimezone: true,
+    mode: "date",
+  }),
+  isRevoked: boolean("is_revoked").default(false),
+  scopes: jsonb("scopes").default(["*"]),
+});
+
+export type ApiKey = typeof apiKeys.$inferSelect;
