@@ -2,9 +2,11 @@ import { Action } from "@local/components/action";
 import { Heading } from "@local/components/heading";
 import { ActiveLink } from "@local/components/link";
 import {
+  BookmarkPlusIcon,
   BoxesIcon,
   //   ChevronDown,
   CircleUser,
+  LibraryIcon,
   LogOut,
   PlusIcon,
   UsersIcon,
@@ -66,8 +68,8 @@ export async function Nav() {
         {user ? (
           <div className="flex items-center gap-2">
             <Action size="sm" variant="primary" is={NextLink} href="/app/new">
-              <PlusIcon className="-ml-1 mr-2 inline-flex self-center" /> New
-              Kit
+              <BookmarkPlusIcon className="-ml-1 mr-2 inline-flex self-center" />{" "}
+              Add <span className="sr-only">new bookmark</span>
             </Action>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -93,10 +95,10 @@ export async function Nav() {
                   <DropdownMenuItem>
                     <ActiveLink
                       className="grow justify-start"
-                      href={`/app/${user.username}/kits`}
+                      href={`/app/library`}
                     >
-                      <BoxesIcon className="mr-2 inline-flex self-center" /> My
-                      Kits
+                      <LibraryIcon className="mr-2 inline-flex self-center" />{" "}
+                      Library
                     </ActiveLink>
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
@@ -112,7 +114,7 @@ export async function Nav() {
                       Account
                     </ActiveLink>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
+                  {/* <DropdownMenuItem>
                     <ActiveLink
                       className="grow justify-start"
                       disabled
@@ -122,7 +124,7 @@ export async function Nav() {
                       <UsersIcon className="mr-2 inline-flex self-center" />{" "}
                       Team (coming soon)
                     </ActiveLink>
-                  </DropdownMenuItem>
+                  </DropdownMenuItem> */}
                   <DropdownMenuItem>
                     <form action={logout}>
                       <Action
