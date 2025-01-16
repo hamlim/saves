@@ -1,12 +1,4 @@
-import {
-  date,
-  integer,
-  jsonb,
-  pgTable,
-  text,
-  timestamp,
-  uuid,
-} from "drizzle-orm/pg-core";
+import { jsonb, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 
 export let users = pgTable("saves-users", {
   id: text("id").primaryKey(),
@@ -38,6 +30,35 @@ export let sessions = pgTable("saves-sessions", {
     .notNull(),
 });
 
+export let collections = pgTable("saves-collections", {
+  id: text("id").primaryKey(),
+  createdAt: timestamp("created_at", {
+    withTimezone: true,
+    mode: "date",
+  }).defaultNow(),
+  userId: text("user_id")
+    .references(() => users.id)
+    .notNull(),
+  name: text("name").notNull(),
+  description: text("description"),
+});
+
+export type Collection = typeof collections.$inferSelect;
+
+export let tags = pgTable("saves-tags", {
+  id: text("id").primaryKey(),
+  createdAt: timestamp("created_at", {
+    withTimezone: true,
+    mode: "date",
+  }).defaultNow(),
+  userId: text("user_id")
+    .references(() => users.id)
+    .notNull(),
+  name: text("name").notNull(),
+});
+
+export type Tag = typeof tags.$inferSelect;
+
 export let content = pgTable("saves-content", {
   id: text("id").primaryKey(),
   createdAt: timestamp("created_at", {
@@ -47,7 +68,41 @@ export let content = pgTable("saves-content", {
   userId: text("user_id")
     .references(() => users.id)
     .notNull(),
+  url: text("url"),
+  title: text("title"),
+  description: text("description"),
+  notes: text("notes"),
   content: jsonb("content"),
 });
 
 export type Content = typeof content.$inferSelect;
+
+// Junction table for many-to-many relationship between content and collections
+export let contentCollections = pgTable("saves-content-collections", {
+  id: text("id").primaryKey(),
+  createdAt: timestamp("created_at", {
+    withTimezone: true,
+    mode: "date",
+  }).defaultNow(),
+  contentId: text("content_id")
+    .references(() => content.id)
+    .notNull(),
+  collectionId: text("collection_id")
+    .references(() => collections.id)
+    .notNull(),
+});
+
+// Junction table for many-to-many relationship between content and tags
+export let contentTags = pgTable("saves-content-tags", {
+  id: text("id").primaryKey(),
+  createdAt: timestamp("created_at", {
+    withTimezone: true,
+    mode: "date",
+  }).defaultNow(),
+  contentId: text("content_id")
+    .references(() => content.id)
+    .notNull(),
+  tagId: text("tag_id")
+    .references(() => tags.id)
+    .notNull(),
+});
