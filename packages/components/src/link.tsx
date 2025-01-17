@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { Action } from "./action";
 import type { ActionProps } from "./action";
 
-export type LinkProps = ActionProps & {
+export type LinkProps = Omit<ActionProps, "is"> & {
   href: string;
 };
 
