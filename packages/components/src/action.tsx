@@ -3,24 +3,24 @@ import { cva } from "class-variance-authority";
 import NextLink from "next/link";
 import type { ElementType, ReactNode } from "react";
 
-export namespace Action {
-  export type Props = {
-    children: ReactNode;
-    is: "button" | "a" | typeof NextLink;
-    href?: string;
-    disabled?: boolean;
-    className?: string;
-    variant?:
-      | "primary"
-      | "secondary"
-      | "destructive"
-      | "outline"
-      | "ghost"
-      | "text";
-    size?: "sm" | "md" | "lg";
-    [key: string]: unknown;
-  };
-}
+export type ActionProps = {
+  children: ReactNode;
+  is: "button" | "a" | typeof NextLink;
+  href?: string;
+  disabled?: boolean;
+  className?: string;
+  variant?:
+    | "primary"
+    | "secondary"
+    | "destructive"
+    | "outline"
+    | "ghost"
+    | "text";
+  size?: "sm" | "md" | "lg";
+  type?: "button" | "submit" | "reset";
+  onClick?: (e: React.MouseEvent<HTMLElement>) => void;
+  // [key: string]: unknown;
+};
 
 let variants = cva(
   `inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 [&.state-disabled]:text-gray-400 [&.state-disabled]:cursor-not-allowed`,
@@ -100,7 +100,7 @@ export function Action({
   variant,
   size,
   ...props
-}: Action.Props): React.ReactNode {
+}: ActionProps): React.ReactNode {
   let Element: ElementType = is;
   if (disabled && (is === "a" || is === NextLink)) {
     Element = "span";

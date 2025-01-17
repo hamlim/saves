@@ -3,8 +3,8 @@
 import { cn } from "@local/utils/cn";
 import { useFormStatus } from "react-dom";
 import { Action } from "./action";
-
-type FormButtonProps = Action.Props;
+import type { ActionProps } from "./action";
+type FormButtonProps = Omit<ActionProps, "type" | "is">;
 
 export function FormButton(props: FormButtonProps): React.ReactNode {
   let status = useFormStatus();
