@@ -21,7 +21,7 @@ export function Link({
   return <Action {...props} is={NextLink} variant={variant} size={size} />;
 }
 
-export function ActiveLink({ href, is, ...props }: LinkProps): React.ReactNode {
+export function ActiveLink({ href, ...props }: LinkProps): React.ReactNode {
   let pathname = usePathname();
   let isActive = pathname === href;
 
@@ -29,5 +29,5 @@ export function ActiveLink({ href, is, ...props }: LinkProps): React.ReactNode {
     return <span {...props} />;
   }
 
-  return <Link href={href} is={is} {...props} />;
+  return <Link href={href} {...props} />;
 }
