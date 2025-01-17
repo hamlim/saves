@@ -36,17 +36,17 @@ export async function Nav() {
       <nav className="flex justify-between items-center">
         <ul className="flex gap-1 md:gap-4 items-center">
           <li className="mr-2 md:mr-10">
-            <Heading level={1}>
+            <Heading className="text-2xl" level={1}>
               <ActiveLink
                 className="flex items-center"
                 href={user ? "/app" : "/"}
               >
                 <NextImage
                   className="inline-flex mr-2"
-                  width={48}
-                  height={48}
+                  width={32}
+                  height={32}
                   //   src="/icons/apple-touch-icon/apple-touch-icon-60x60.png"
-                  src="/icons/favicons/favicon-48x48.png"
+                  src="/icons/favicons/favicon-32x32.png"
                   alt=""
                 />
                 Saves

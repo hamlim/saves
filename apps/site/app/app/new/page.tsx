@@ -51,10 +51,8 @@ export default async function NewBookmark() {
   let existingTags = tagsResult.status === "fulfilled" ? tagsResult.value : [];
 
   return (
-    <article className="grow grid grid-cols-1 justify-center">
-      <Heading level={2} className="text-7xl mb-2 text-center">
-        Add a new bookmark
-      </Heading>
+    <article className="max-w-[95vw] md:max-w-prose md:w-[65ch] m-auto grow grid grid-cols-1 justify-center">
+      <Heading level={2}>Add a new bookmark</Heading>
 
       <form
         action={createBookmark}
