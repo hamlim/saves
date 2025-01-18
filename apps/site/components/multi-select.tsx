@@ -3,7 +3,7 @@
 import { Action } from "@local/components/action";
 import { cn } from "@local/utils/cn";
 import { Check, ChevronDown, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import {
@@ -51,6 +51,28 @@ export function MultiSelect({
   let [options, setOptions] = useState<Array<Option>>(providedOptions);
 
   // @TODO: Support new options via useEffect or something
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: I intentionally want to close over the providedOptions
+  useEffect(() => {
+    let controller = new AbortController();
+    let signal = controller.signal;
+
+    document.addEventListener(
+      "reset",
+      (e) => {
+        setSelectedValues([]);
+        setOptions(providedOptions);
+        setInputValue("");
+      },
+      {
+        signal,
+      },
+    );
+
+    return () => {
+      controller.abort();
+    };
+  }, []);
 
   let toggleOption = (option: string) => {
     let newSelectedValues = selectedValues.includes(option)

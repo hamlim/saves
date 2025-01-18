@@ -15,6 +15,16 @@ async function createBookmark(formData: FormData) {
   let url = formData.get("url")?.toString();
   let title = formData.get("title")?.toString();
   let description = formData.get("description")?.toString();
+  let tags = formData.get("tags")?.toString();
+  let collections = formData.get("collections")?.toString();
+
+  console.log({
+    url,
+    title,
+    description,
+    tags,
+    collections,
+  });
 
   if (!url) {
     throw new Error("URL is required");
@@ -85,10 +95,10 @@ export default async function NewBookmark() {
 
         <div>
           <label className="mb-2 flex flex-col" htmlFor="collection">
-            Collection
+            Collections
           </label>
           <MultiSelect
-            name="collection"
+            name="collections"
             options={existingCollections.map((c: Collection) => ({
               label: c.name,
               value: c.id,
